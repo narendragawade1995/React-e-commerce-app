@@ -1,22 +1,22 @@
-import React from "react";
-import { ProductConsumer } from "../context";
+import React,{useContext} from "react";
+import {ProductContext} from "../context";
 import { ButtonContainer } from "./Button";
 import { Link } from "react-router-dom";
 const Details = () => {
+  const value = useContext(ProductContext);
+  const {
+    id,
+    company,
+    img,
+    info,
+    price,
+    title,
+    inCart
+  } = value.state.detailProduct;
     return (
-      <ProductConsumer>
-        {value => {
-          const {
-            id,
-            company,
-            img,
-            info,
-            price,
-            title,
-            inCart
-          } = value.state.detailProduct;
+     
 
-          return (
+          
             <div className="container py-5">
               {/* title */}
               <div className="row">
@@ -45,7 +45,6 @@ const Details = () => {
                     some info about product :
                   </p>
                   <p className="text-muted lead">{info}</p>
-                  {/* buttons */}
                   <div>
                     <Link to="/">
                       <ButtonContainer>back to products</ButtonContainer>
@@ -65,9 +64,7 @@ const Details = () => {
                 
               </div>
             </div>
-          );
-        }}
-      </ProductConsumer>
+         
     );
   
 }
