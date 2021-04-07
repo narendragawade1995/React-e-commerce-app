@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
  const Modal = () =>{
   const value = useContext(ProductContext)
   const { closeModal } = value;
-  console.log(value.state)
 
   const { img, title, price } = value.state.modalProduct  ;
     return (

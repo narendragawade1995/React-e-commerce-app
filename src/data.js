@@ -13,7 +13,7 @@ export const storeProducts = [
     },
     {
       id: 2,
-      title: "Apple iPhone 12 pro - Gold",
+      title: "Apple iPhone 12 pro",
       img: "img/iphone12pro.jpg",
       price: 100000,
       company: "APPLE",
@@ -109,7 +109,7 @@ export const storeProducts = [
     },
     {
       id: 10,
-      title: "Apple iPhone 12 pro - Gold",
+      title: "Apple iPhone 12 pro ",
       img: "img/iphone12pro.jpg",
       price: 120200,
       company: "APPLE",
