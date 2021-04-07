@@ -1,16 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-export default class CartTotals extends Component {
-  render() {
+const CartTotals =(props) => {
     const {
-      cartSubTotal,
-      cartTax,
+       
       cartTotal,
       cart,
-      clearCart,
-      totalQwt
-    } = this.props.value.state;
-    const { history } = this.props;
+      totalQwt,
+      userEmail
+    } = props.value.state;
     const emptyCart = cart.length === 0 ? true : false;
     return (
       <React.Fragment>
@@ -23,29 +20,25 @@ export default class CartTotals extends Component {
                     className="btn btn-outline-danger text-uppercase mb-3 px-5"
                     type="button"
                     onClick={() => {
-                      this.props.value.clearCart();
+                      props.value.clearCart();
                     }}
                   >
                     clear cart
                   </button>
                 </Link>
-                {/* <h5>
-                  <span className="text-title"> subtotal :</span>{" "}
-                  <strong>$ {cartSubTotal} </strong>
+                
+                <h5>
+                  <span  > total Quentity:</span>{" "}
+                  <strong>₹ {totalQwt} </strong>
                 </h5>
                 <h5>
-                  <span className="text-title"> tax :</span>{" "}
-                  <strong>$ {cartTax} </strong>
-                </h5> */}
-                <h5>
-                  <span className="text-title"> total Quentity:</span>{" "}
-                  <strong>$ {totalQwt} </strong>
+                  <span  > total :</span>{" "}
+                  <strong>₹ {cartTotal} </strong>
                 </h5>
                 <h5>
-                  <span className="text-title"> total :</span>{" "}
-                  <strong>$ {cartTotal} </strong>
+                  <span  > User Email :</span>{" "}
+                  <strong>{userEmail} </strong>
                 </h5>
-                 
               </div>
             </div>
           </div>
@@ -53,4 +46,5 @@ export default class CartTotals extends Component {
       </React.Fragment>
     );
   }
-}
+
+export default   CartTotals;

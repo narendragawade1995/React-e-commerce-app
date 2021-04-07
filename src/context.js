@@ -16,14 +16,26 @@ export const ProductContext = createContext();
         isLoggIn: false,
         login:false,
         tempid:0,
-        totalQwt:0
+        totalQwt:0,
+        userEmail:' ',
+        Password:" "
       }
     );
    
   
   useEffect(() => {
     setProducts();
+
+    if(localStorage.getItem('data')){
+      const statedate = JSON.parse(localStorage.getItem('data'));
+      setState((previous) => {
+        return { ...previous,...statedate };
+      });
+    }
+    
   },[]);
+
+  
 
   const setProducts = () => {
     let products = [];
@@ -64,6 +76,12 @@ export const ProductContext = createContext();
     product.total = price;
 
     setState((previous) => {
+      localStorage.setItem('data',JSON.stringify({  ...previous,  products: [...tempProducts],
+        cart: [...state.cart, product],
+        detailProduct: { ...product },
+        cartTotal:previous.cartTotal + product.price,
+         totalQwt:previous.totalQwt + 1}))
+      
       return {
         ...previous,
         products: [...tempProducts],
@@ -89,14 +107,13 @@ export const ProductContext = createContext();
   };
 
 
- const  isLoggIncheck = () =>{
+ const  isLoggIncheck = (data) =>{
     setState((previous) => {
-      return {  ...previous,login:false,isLoggIn: true};
-    }, ()=>{
-      addToCart(state.tempid);
-      openModal(state.tempid);
-    });
-  
+      localStorage.setItem('data',JSON.stringify({  ...previous,login:false,isLoggIn: true,Password:data.password, userEmail:data.email}))
+      return {  ...previous,login:false,isLoggIn: true,Password:data.password, userEmail:data.email};
+    },  
+
+    );
   }
   
   const increment = id => {
@@ -109,6 +126,14 @@ export const ProductContext = createContext();
     product.count = product.count + 1;
     product.total = product.count * product.price;
     setState((previous) => {
+      localStorage.setItem('data',JSON.stringify( {
+        ...previous,
+        cart: [...tempCart],
+        cartTotal:previous.cartTotal + product.price,
+         totalQwt:previous.totalQwt + 1
+
+      }))
+
       return {
         ...previous,
         cart: [...tempCart],
@@ -131,50 +156,13 @@ export const ProductContext = createContext();
     } else {
       product.total = product.count * product.price;
       setState((previous) => {
+        localStorage.setItem('data',JSON.stringify({...previous, cart: [...tempCart], cartTotal:previous.cartTotal - selectedProduct.price, totalQwt:previous.totalQwt - 1 }))
         return {...previous, cart: [...tempCart], cartTotal:previous.cartTotal - selectedProduct.price, totalQwt:previous.totalQwt - 1 };
-      }, () =>addTotals());
+      });
     }
   };
-  const getTotals = () => {
-    // const subTotal = state.cart
-    //   .map(item => item.total)
-    //   .reduce((acc, curr) => {
-    //     acc = acc + curr;
-    //     return acc;
-    //   }, 0);
-    let subTotal = 0;
-    let totalQwt = 0;
-    state.cart.map(item =>{
-      subTotal += item.total;
-      totalQwt += item.count
-    });
-   const tempTax = subTotal * 0.1;
-    const tax = parseFloat(tempTax.toFixed(2));
-    const total = subTotal ;
-    return {
-      subTotal,
-      tax,
-      total,
-      totalQwt
-    };
-  };
-  const addTotals = () => {
-    const totals = getTotals();
-    setState(
-      (previous) => {
-        return {
-          ...previous,
-         // cartSubTotal: totals.subTotal,
-         // cartTax: totals.tax,
-          cartTotal: totals.total,
-          totalQwt:totals.totalQwt
-        };
-      },
-      () => {
-        // console.log(state);
-      }
-    );
-  };
+  
+   
   const removeItem = id => {
     let tempProducts = [...state.products];
     let tempCart = [...state.cart];
@@ -191,6 +179,14 @@ export const ProductContext = createContext();
     });
 
     setState((previous) => {
+      localStorage.setItem('data',JSON.stringify({
+        ...previous,
+        cart: [...tempCart],
+        products: [...tempProducts],
+        cartTotal:previous.cartTotal - price, 
+        totalQwt:previous.totalQwt - 1
+      }))
+
       return {
         ...previous,
         cart: [...tempCart],
@@ -203,13 +199,12 @@ export const ProductContext = createContext();
   const clearCart = () => {
     setState(
       (previous) => {
-        return { ...previous,cart: [] };
-      },
-      () => {
-        setProducts();
-        addTotals();
+    localStorage.setItem('data',JSON.stringify({ ...previous,cart: [],products:[...storeProducts], totalQwt:0,cartTotal:0 }))
+
+        return { ...previous,cart: [],products:[...storeProducts], totalQwt:0,cartTotal:0 };
       }
     );
+    setProducts();
   };
   
     return (

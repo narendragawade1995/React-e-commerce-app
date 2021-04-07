@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-export default class CartItem extends Component {
-  render() {
-    const { id, title, img, price, total, count } = this.props.item;
-    const { increment, decrement, removeItem } = this.props.value;
+import React from "react";
+const CartItem =(props) =>{
+ 
+    const { id, title, img, price, total, count } = props.item;
+    const { increment, decrement, removeItem } = props.value;
 
     return (
       <div className="row my-1 text-capitalize text-center">
@@ -19,7 +19,7 @@ export default class CartItem extends Component {
         </div>
         <div className="col-10 mx-auto col-lg-2 ">
           <strong>
-            <span className="d-lg-none">price :</span> ${price}
+            <span className="d-lg-none">price :</span> ₹{price}
           </strong>
         </div>
         <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0 ">
@@ -52,9 +52,11 @@ export default class CartItem extends Component {
         </div>
 
         <div className="col-10 mx-auto col-lg-2 ">
-          <strong>item total : ${total} </strong>
+          <strong>item total : ₹{total} </strong>
         </div>
       </div>
     );
   }
-}
+
+
+export default CartItem;

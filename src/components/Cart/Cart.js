@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import Title from "../Title";
 import CartColumns from "./CartColumns";
 import CartList from "./CartList";
 import CartTotals from "./CartTotals";
 import { ProductConsumer } from "../../context";
 import EmptyCart from "./EmptyCart";
-export default class Store extends Component {
-  render() {
+ const Store =(props) =>{
     return (
       <section>
         <ProductConsumer>
@@ -18,7 +17,7 @@ export default class Store extends Component {
                   <Title name="your" title="cart" />
                   <CartColumns />
                   <CartList value={value} />
-                  <CartTotals value={value} history={this.props.history} />
+                  <CartTotals value={value} history={props.history} />
                 </React.Fragment>
               );
             } else {
@@ -29,4 +28,5 @@ export default class Store extends Component {
       </section>
     );
   }
-}
+
+export default   Store;

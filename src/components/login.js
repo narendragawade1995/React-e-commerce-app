@@ -10,15 +10,12 @@ const Login = () => {
     });
     onsubmit= () =>{
         if(handleValidation()){
-            value.isLoggIncheck();
-            console.log(value);
-
+            value.isLoggIncheck(state.fields);
          }
     }
 
     const handleChange = (e) =>{         
         let fields = state.fields;
-        console.log( e.target)
         fields[e.target.name] = e.target.value;        
         setState((prex) => ({...prex,fields}));
     }
@@ -68,20 +65,20 @@ return (
                            <h5>Login</h5>
 
                            <form  >
-                               <div className="form-group d-flex ">
-                                   <label >Email address:</label>
-                                   <input type="email" className="form-control" placeholder="Enter email" id="email" name="email"     refs="email" onChange={handleChange} value={state.username}/>
-                                  
+                               <div className="form-group d-flex align-items-center position-relative  mb-4">
+                                   <div className="col-md-3">Email:</div>
+                                   <input type="email" className="form-control" placeholder="Enter email" id="email" name="email"     refs="email" onChange={handleChange} value={state.username} autoComplete="on"/>
+                                    <span  className="text-danger  validation">{state.errors["email"]}</span>
 
                                </div>
-                               <span style={{color: "red"}}>{state.errors["email"]}</span>
-                               <div className="form-group">
-                                   <label >Password:</label>
-                                   <input type="password" className="form-control" placeholder="Enter password" id="pwd" name="password"   refs="password"  onChange={handleChange}    value={state.password}/>
-                                     <span style={{color: "red"}}>{state.errors["password"]}</span>
+                               <div className="form-group  d-flex align-items-center position-relative mb-4">
+                                   <div className="col-md-3 ">Password:</div>
+                                   <input type="password" className="form-control" placeholder="Enter password" id="pwd" name="password"   refs="password"  onChange={handleChange}    value={state.password} autoComplete="off"/>
+                               <span  className="text-danger  validation">{state.errors["password"]}</span>
+
                                </div>
                                 
-                               <button type="submit" className="btn btn-primary" onClick={(ev) =>{
+                               <button type="submit" className="btn btn-primary d-block w-25 m-auto" onClick={(ev) =>{
                                    ev.preventDefault();
                                    // isLoggIncheck();
                                    onsubmit()
@@ -110,6 +107,13 @@ const ModalContainer = styled.div`
   #modal {
     background: var(--mainWhite);
   }
+  .validation{
+    position: absolute;
+    top: 38px;
+    left: 30%;
+
+  }
 `;
+
 
 export default Login;

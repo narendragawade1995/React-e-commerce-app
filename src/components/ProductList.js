@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Product from "./Product";
 import Title from "./Title";
-import { storeProducts } from "../data";
 import styled from "styled-components";
 import { ProductConsumer } from "../context";
  const  ProductList =() =>{
@@ -14,7 +13,6 @@ import { ProductConsumer } from "../context";
             <div className="row">
               <ProductConsumer>
                 {value => {
-                  console.log(value)
                   return value.state.products.map(product => {
                     return <Product key={product.id} product={product} />;
                   });

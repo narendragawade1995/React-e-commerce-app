@@ -1,6 +1,6 @@
 import React,{useContext} from "react";
 import styled from "styled-components";
-import { ProductConsumer ,ProductContext} from "../context";
+import { ProductContext} from "../context";
 import { ButtonContainer } from "./Button";
 import { Link } from "react-router-dom";  
 
@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
  const Modal = () =>{
   const value = useContext(ProductContext)
   const { closeModal } = value;
-  console.log(value)
-  const { img, title, price } = value.state.modalProduct;
+  console.log(value.state)
+
+  const { img, title, price } = value.state.modalProduct  ;
     return (
           !value.state.modalOpen ? 
             null:
@@ -20,13 +21,13 @@ import { Link } from "react-router-dom";
                       className="col-8 mx-auto col-md-6 col-lg-4 p-5 text-center text-capitalize"
                       id="modal"
                     >
-                      <div className='position-absolute' style={{top:'10px',right:'12px',cursor:"pointer"}}  onClick={() => {
+                      <div className='position-absolute' style={{top:'10px',right:'21px',cursor:"pointer"}}  onClick={() => {
                             closeModal();
                           }}>X</div>
                       <h5>item added to cart</h5>
                       <img src={img} className="img-fluid" alt="" />
                       <h5>{title}</h5>
-                      <h5 className="text-muted">price : ${price}</h5>
+                      <h5 className="text-muted">price : ₹{price}</h5>
                       <Link to="/">
                         <ButtonContainer
                           onClick={() => {

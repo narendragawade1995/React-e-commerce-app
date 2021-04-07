@@ -15,7 +15,7 @@ const Details = () => {
             title,
             inCart
           } = value.state.detailProduct;
-
+          
           return (
             <div className="container py-5">
               {/* title */}
@@ -37,7 +37,7 @@ const Details = () => {
                   </h4>
                   <h4 className="text-blue">
                     <strong>
-                      price : <span>$</span>
+                      price : <span>₹</span>
                       {price}
                     </strong>
                   </h4>
@@ -60,7 +60,9 @@ const Details = () => {
                       {inCart ? "in cart" : "add to cart"}
                     </ButtonContainer>
                   </div>
+                   
                 </div>
+                
               </div>
             </div>
           );

@@ -40,7 +40,7 @@ import { ProductConsumer } from "../context";
               <span className="mr-2">
                 <i className="fas fa-cart-plus " />
               </span>
-              {cartTotal ? `$${cartTotal}`:''}
+              {cartTotal ? `₹ ${cartTotal}`:''}
             </ButtonContainer>
           </Link>
         </Nav>
